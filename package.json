@@ -1,7 +1,7 @@
 {
   "name": "hypercat-sig",
   "version": "1.0.0",
-  "description": "HyperCat Crypto Signer",
+  "description": "Hypercat Crypto Signer",
   "main": "hypercat-sig.js",
   "dependencies": {
     "command-line-args": "^0.5.9",

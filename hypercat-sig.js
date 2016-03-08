@@ -80,21 +80,21 @@ if (options.sign) {
             try {
                 cat = JSON.parse(data);
 
-                cat['item-metadata'].push({
+                cat['catalogue-metadata'].push({
                     rel: 'urn:X-hypercat:rels:jws:signature',
                     val: privKey.sign(stringify(cat, sorter)).toString('base64')
                 });
-                cat['item-metadata'].push({
+                cat['catalogue-metadata'].push({
                     rel: 'urn:X-hypercat:rels:jws:alg',
                     val: 'RS256'
                 });
-                cat['item-metadata'].push({
+                cat['catalogue-metadata'].push({
                     rel: 'urn:X-hypercat:rels:jws:key',
                     val: pubKey.exportKey('pkcs8-public-pem')
                 });
                 console.log(JSON.stringify(cat, null, 2));
             } catch(e) {
-                console.error('Invalid HyperCat', options.sign, e);
+                console.error('Invalid Hypercat', options.sign, e);
             }
         }
     });
@@ -114,14 +114,14 @@ function catRemoveSig(inCat) {
     var i;
     var mdata;
     var outCat = {
-        'item-metadata': []
+        'catalogue-metadata': []
     };
 
     // copy everything but jws rels across
-    mdata = inCat['item-metadata'];
+    mdata = inCat['catalogue-metadata'];
     for (i = 0; i < mdata.length; i += 1) {
         if (mdata[i].rel.indexOf('urn:X-hypercat:rels:jws') !== 0) {
-            outCat['item-metadata'].push(mdata[i]);
+            outCat['catalogue-metadata'].push(mdata[i]);
         }
     }
 
@@ -142,13 +142,13 @@ if (options.verify) {
         } else {
             try {
                 cat = JSON.parse(data);
-                if (pubKey.verify(stringify(catRemoveSig(cat), sorter), new Buffer(getMetadataRel(cat['item-metadata'], 'urn:X-hypercat:rels:jws:signature'), 'base64'))) {
+                if (pubKey.verify(stringify(catRemoveSig(cat), sorter), new Buffer(getMetadataRel(cat['catalogue-metadata'], 'urn:X-hypercat:rels:jws:signature'), 'base64'))) {
                     console.log("Verify OK");
                 } else {
                     console.log("Verify failed");
                 }
             } catch(e) {
-                console.error('Invalid HyperCat', options.sign, e);
+                console.error('Invalid Hypercat', options.sign, e);
             }
         }
     });

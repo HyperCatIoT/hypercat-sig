@@ -1,6 +1,6 @@
-# HyperCat Sig
+# Hypercat Sig
 
-This project demonstrates one possible way of cryptographically signing a HyperCat file. By adding a digital signature to a catalogue, the provenance can be automatically verified ensuring that no changes have been made.
+This project demonstrates one possible way of cryptographically signing a Hypercat file. By adding a digital signature to a catalogue, the provenance can be automatically verified ensuring that no changes have been made.
 
 In order to allow for whitespace ordering and other changes to JSON which would result in identical data, keys are sorted before hashing.
 
